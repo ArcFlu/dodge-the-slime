@@ -13,15 +13,25 @@ func _process(delta: float) -> void:
 
 
 func game_over():
+	$BGM.stop()
 	$HUD.show_game_over()
 	$ScoreTimer.stop()
+	$DeathSound.pitch_scale = randf_range(0.9, 1.1)
+	for i in range(10):
+		var sound = $DeathSound.duplicate()
+		add_child(sound)
+		sound.pitch_scale = randf_range(0.9, 1.1)
+		sound.play()
+		await get_tree().create_timer(2)
+
 
 
 
 func new_game():
+	$BGM.play()
 	get_tree().call_group("mobs", "queue_free")
 	score = 0
-	$HUD.update_score(score)
+	$HUD.update_score(score)       
 	$HUD.show_message("Get Ready")
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
