@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://vwdg5intlcdw"]
+[gd_scene load_steps=5 format=3 uid="uid://vwdg5intlcdw"]
 
 [ext_resource type="FontFile" uid="uid://b1shi2d28l0mb" path="res://assets/Ant Party.ttf" id="1_37p78"]
 [ext_resource type="Script" uid="uid://jcanmhe70ege" path="res://hud.gd" id="1_64ctp"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_64ctp"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_8sq4i"]
+events = [SubResource("InputEventAction_64ctp")]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_64ctp")
@@ -38,7 +44,8 @@ grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 32
-text = "Dodge the Slimes!!"
+text = "Dodge the Slimes!!
+Made by ArcFlu"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -57,11 +64,22 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 32
+shortcut = SubResource("Shortcut_8sq4i")
 text = "Start"
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="HighScoreLabel" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 37.0
+offset_right = 301.0
+offset_bottom = 86.0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_37p78")
+theme_override_font_sizes/font_size = 48
+text = "High-Score: 0"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

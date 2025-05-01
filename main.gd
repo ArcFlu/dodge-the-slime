@@ -1,34 +1,50 @@
 extends Node
 
 @export var mob_scene: PackedScene
-var score
+var score: int = 0
+var high_score: int = load_high_score()
 
-# Called when the node enters the scene tree for the first time.
+func save_high_score(score):
+	var file = FileAccess.open("user://high_score.save", FileAccess.WRITE)
+	if file:
+		file.store_var(score)
+		file.close()
+
+func load_high_score() -> int:
+	if FileAccess.file_exists("user://high_score.save"):
+		var file = FileAccess.open("user://high_score.save", FileAccess.READ)
+		if file:
+			var score = file.get_var()
+			file.close()
+			return score
+	return 0  # Default if no file exists
+
 func _ready() -> void:
-	pass
+	if score > high_score:
+		high_score = score
+		$HUD.update_high_score(high_score)
+		save_high_score(score)
+	$BGM.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
-
 func game_over():
 	$BGM.stop()
 	$HUD.show_game_over()
 	$ScoreTimer.stop()
-	$DeathSound.pitch_scale = randf_range(0.9, 1.1)
-	for i in range(10):
+	for i in range(20): 
 		var sound = $DeathSound.duplicate()
 		add_child(sound)
-		sound.pitch_scale = randf_range(0.9, 1.1)
+		sound.pitch_scale = randf_range(0.8, 1.4)
 		sound.play()
-		await get_tree().create_timer(2)
-
-
-
+		await get_tree().create_timer(.2).timeout
 
 func new_game():
-	$BGM.play()
+	$DeathSound.stop()
+	if !$BGM.playing:
+		$BGM.play()
 	get_tree().call_group("mobs", "queue_free")
 	score = 0
 	$HUD.update_score(score)       
@@ -65,6 +81,9 @@ func _on_mob_timer_timeout():
 func _on_score_timer_timeout():
 	score += 1
 	$HUD.update_score(score)
+	if score > high_score:
+		high_score = score
+		$HUD.update_high_score(high_score)
 
 func _on_start_timer_timeout():
 	$MobTimer.start()
