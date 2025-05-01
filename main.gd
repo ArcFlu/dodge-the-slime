@@ -21,10 +21,12 @@ func load_high_score() -> int:
 
 func _ready() -> void:
 	high_score = load_high_score()
+	$HUD.update_high_score(high_score)
 	$BGM.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	print(high_score);
 	pass
 
 func game_over():
