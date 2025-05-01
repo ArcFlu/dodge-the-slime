@@ -20,10 +20,7 @@ func load_high_score() -> int:
 	return 0  # Default if no file exists
 
 func _ready() -> void:
-	if score > high_score:
-		high_score = score
-		$HUD.update_high_score(high_score)
-		save_high_score(score)
+	high_score = load_high_score()
 	$BGM.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,6 +28,7 @@ func _process(delta: float) -> void:
 	pass
 
 func game_over():
+	$MobTimer.stop()
 	$BGM.stop()
 	$HUD.show_game_over()
 	$ScoreTimer.stop()
@@ -84,6 +82,7 @@ func _on_score_timer_timeout():
 	if score > high_score:
 		high_score = score
 		$HUD.update_high_score(high_score)
+		save_high_score(score)
 
 func _on_start_timer_timeout():
 	$MobTimer.start()

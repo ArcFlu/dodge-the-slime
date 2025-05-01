@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://cchsh8rplcvrx"]
 
-[ext_resource type="Script" uid="uid://231qq76jt7yh" path="res://player.gd" id="1_i3pqv"]
+[ext_resource type="Script" uid="uid://bcugee2c6p2qi" path="res://player.gd" id="1_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://du73ecdwiccbh" path="res://assets/slime/PNG/Slime1/Idle/Slime1_Idle_full.png" id="1_onrkg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3g6e"]
