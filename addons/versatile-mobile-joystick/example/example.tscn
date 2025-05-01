@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnbatu0jyivwl"]
+
+[ext_resource type="Texture2D" uid="uid://cfjvo5mm7dug8" path="res://addons/versatile-mobile-joystick/JoystickNodeIcon.png" id="4_dvctb"]
+[ext_resource type="Script" uid="uid://eksahp2x18fv" path="res://addons/versatile-mobile-joystick/example/sprite_2d.gd" id="4_e3kxc"]
+
+[sub_resource type="Curve" id="Curve_bdndr"]
+_data = [Vector2(0, 0.713208), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Example" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(322, 63)
+scale = Vector2(1.625, 1.625)
+texture = ExtResource("4_dvctb")
+script = ExtResource("4_e3kxc")
+
+[node name="Line2D" type="Line2D" parent="Sprite2D"]
+unique_name_in_owner = true
+z_index = -1
+points = PackedVector2Array(0, 0, 27.6923, 0.615383)
+width = 7.32
+width_curve = SubResource("Curve_bdndr")
+default_color = Color(1, 0, 0, 1)

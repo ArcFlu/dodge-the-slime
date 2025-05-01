@@ -15,6 +15,7 @@ var last_direction := Vector2.DOWN  # Default facing down
 
 func _process(delta: float):
 	velocity = Vector2.ZERO
+	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
 	if Input.is_action_pressed("move_left"):
