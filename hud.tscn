@@ -6,12 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://b3rjj1bmqtiok" path="res://addons/versatile-mobile-joystick/default_textures/BaseJoystickTest.png" id="4_1xsix"]
 [ext_resource type="Texture2D" uid="uid://dlgmq4q7t23o8" path="res://addons/versatile-mobile-joystick/default_textures/TipJoystickTest.png" id="5_rftc2"]
 
-[sub_resource type="InputEventAction" id="InputEventAction_64ctp"]
-action = &"start_game"
-
-[sub_resource type="Shortcut" id="Shortcut_8sq4i"]
-events = [SubResource("InputEventAction_64ctp")]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_61f8s"]
 radius = 8.2
 
@@ -25,8 +19,24 @@ size = Vector2(2000, 2000)
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
+[sub_resource type="InputEventAction" id="InputEventAction_64ctp"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_8sq4i"]
+events = [SubResource("InputEventAction_64ctp")]
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_64ctp")
+
+[node name="JoystickController" parent="." instance=ExtResource("3_a2258")]
+position = Vector2(566, 306)
+base_texture = ExtResource("4_1xsix")
+tip_texture = ExtResource("5_rftc2")
+deadzone_circle = SubResource("CircleShape2D_61f8s")
+tip_limit_circle = SubResource("CircleShape2D_g10ll")
+touch_detection_region = SubResource("RectangleShape2D_gpiub")
+strength_curve = SubResource("Curve_amv7k")
+visibility_mode = 1
 
 [node name="ScoreLabel" type="Label" parent="."]
 anchors_preset = 5
@@ -66,6 +76,20 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="HighScoreLabel" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 37.0
+offset_right = 301.0
+offset_bottom = 86.0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_37p78")
+theme_override_font_sizes/font_size = 48
+text = "High-Score: 0"
+
 [node name="StartButton" type="Button" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
@@ -83,29 +107,5 @@ theme_override_font_sizes/font_size = 32
 shortcut = SubResource("Shortcut_8sq4i")
 text = "Start"
 
-[node name="MessageTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="HighScoreLabel" type="Label" parent="."]
-offset_left = 6.0
-offset_top = 37.0
-offset_right = 301.0
-offset_bottom = 86.0
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("1_37p78")
-theme_override_font_sizes/font_size = 48
-text = "High-Score: 0"
-
-[node name="JoystickController" parent="." instance=ExtResource("3_a2258")]
-position = Vector2(566, 306)
-base_texture = ExtResource("4_1xsix")
-tip_texture = ExtResource("5_rftc2")
-deadzone_circle = SubResource("CircleShape2D_61f8s")
-tip_limit_circle = SubResource("CircleShape2D_g10ll")
-touch_detection_region = SubResource("RectangleShape2D_gpiub")
-strength_curve = SubResource("Curve_amv7k")
-visibility_mode = 1
-
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

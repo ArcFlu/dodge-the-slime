@@ -160,13 +160,13 @@ curve = SubResource("Curve2D_7dm0k")
 position = Vector2(-113.868, -63.2461)
 rotation = -0.000715075
 
-[node name="HUD" parent="." instance=ExtResource("4_1bvp3")]
-
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_7mycd")
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_272bh")
+
+[node name="HUD" parent="." instance=ExtResource("4_1bvp3")]
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
